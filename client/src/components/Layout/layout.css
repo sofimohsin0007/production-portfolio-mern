@@ -27,3 +27,18 @@
   color: white;
   margin-top: 10px;
 }
+
+/* ========== MOBILE VIEW ========== */
+@media (max-width: 600px) {
+  .sidebar {
+    display: none;
+  }
+
+  .sidebar-toggle {
+    width: 100px;
+  }
+
+  .sidebar-toggle-icons p svg {
+    margin-top: 5px;
+  }
+}
