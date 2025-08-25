@@ -9,12 +9,14 @@ import ScrollToTop from "react-scroll-to-top";
 import { useTheme } from "./context/ThemeContext";
 import { JackInTheBox } from "react-awesome-reveal";
 import MobileNav from "./components/MobileNav/MobileNav";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const [theme] = useTheme();
   return (
     <>
       <div id={theme}>
+        <ToastContainer />
         <MobileNav />
         <Layout />
         <div className="container">
@@ -25,7 +27,7 @@ function App() {
           <WorkExp />
           <Contact />
         </div>
-        <div className="footer pb-3 ms-3">
+        <div className="footer pb-4 ms-3">
           <JackInTheBox>
             <h4 className="text-center">
               Made with ❤️ Mosin farooq &copy; 2025

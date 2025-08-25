@@ -1,10 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { BsLinkedin, BsGithub, BsFacebook } from "react-icons/bs";
 import { Roll, Rotate } from "react-awesome-reveal";
+import axios from "axios";
 
 import "./contact.css";
 
 const Contact = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [msg, setMsg] = useState("");
+
+  //handle submit button
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (!name || !email || !msg) {
+        toast.error("Please provide all fields");
+      }
+      const res = await axios.post("/api/v1/portfolio/sendEmail", {
+        name,
+        email,
+        msg,
+      });
+      //validation success
+      if (res.data.success) {
+        toast.success(res.data.message);
+        setName("");
+        setEmail("");
+        setMsg("");
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div className="contact" id="contact">
@@ -46,6 +78,8 @@ const Contact = () => {
                         name="name"
                         placeholder="Enter your Name"
                         className="mb-3"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                       />
                     </div>
                     <div className="row px-3">
@@ -54,6 +88,8 @@ const Contact = () => {
                         name="email"
                         placeholder="Enter your Email Address"
                         className="mb-3"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
                     <div className="row px-3">
@@ -62,10 +98,12 @@ const Contact = () => {
                         name="msg"
                         placeholder="Enter your message"
                         className="mb-3"
+                        value={msg}
+                        onChange={(e) => setMsg(e.target.value)}
                       />
                     </div>
                     <div className="row px-3">
-                      <button className="button" type="submit">
+                      <button className="button" onClick={handleSubmit}>
                         Send Message
                       </button>
                     </div>
